@@ -2,9 +2,7 @@
  * カメラアプリ
  */
 class CameraApp {
-  /**
-   * コンストラクタ
-   */
+  /** コンストラクタ */
   constructor(videoId, photosId, buttonId) {
     this.video = document.getElementById(videoId);
     this.photos = document.getElementById(photosId);

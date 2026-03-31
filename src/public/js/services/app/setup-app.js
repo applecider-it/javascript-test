@@ -7,6 +7,7 @@ async function loadComponent(id, file) {
 
 /** アプリケーションのセットアップ */
 function setup() {
+  // コンポーネント
   loadComponent('app-header', '../layout/header.html');
   loadComponent('app-footer', '../layout/footer.html');
 
