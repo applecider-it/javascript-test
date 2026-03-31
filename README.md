@@ -10,5 +10,6 @@
 - Vue
 - Vue Router
 - Vite
+- Typescript
 - Tailwind
 

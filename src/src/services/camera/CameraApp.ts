@@ -4,7 +4,6 @@
 export default class CameraApp {
   video: HTMLVideoElement;
 
-  /** コンストラクタ */
   constructor(video: HTMLVideoElement) {
     this.video = video;
 
@@ -12,12 +11,12 @@ export default class CameraApp {
   }
 
   /** 初期化 */
-  async init(): Promise<void> {
+  private async init(): Promise<void> {
     await this.startCamera();
   }
 
   /** カメラを起動 */
-  async startCamera(): Promise<void> {
+  private async startCamera(): Promise<void> {
     try {
       // カメラ映像ストリーム取得
       const stream: MediaStream = await navigator.mediaDevices.getUserMedia({
@@ -39,7 +38,7 @@ export default class CameraApp {
   }
 
   /** 写真を撮って、DataURLを返す */
-  takePhoto(): string {
+  public takePhoto(): string {
     // 新しいcanvasを作成
     const canvas: HTMLCanvasElement = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
