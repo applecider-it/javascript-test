@@ -33,7 +33,7 @@ onMounted(() => {
   <div class="app-card">
     <div class="photos">
       <span v-for="(photo, index) in photos" :key="index">
-        <img :src="photo" />
+        <img :src="photo" class="inline-block" />
       </span>
     </div>
   </div>
