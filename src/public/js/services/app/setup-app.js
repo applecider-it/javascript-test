@@ -6,3 +6,5 @@ async function loadComponent(id, file) {
 
 loadComponent("app-header", "../layout/header.html");
 loadComponent("app-footer", "../layout/footer.html");
+
+window.App = {};
