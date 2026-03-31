@@ -7,6 +7,7 @@ cd ~/workspace/github/javascript-test/src
 port
 
 vue: 5173
+確認用サーバー: 5174
 
 -----------------------------------
 
@@ -21,6 +22,17 @@ http://localhost:5173/
 セットアップ
 
 npm ci
+
+-----------------------------------
+
+ビルド
+
+npm run build
+
+serve dist -l 5174 -s
+
+http://localhost:5174/
+
 
 -----------------------------------
 
