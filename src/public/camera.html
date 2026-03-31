@@ -6,21 +6,31 @@
     <link rel="stylesheet" href="./css/app.css" />
     <script type="module" src="./js/services/app/setup-app.js"></script>
   </head>
-  <body>
+  <body class="app-body">
     <div id="app-header"></div>
 
-    <main>
+    <main class="app-main">
       <script type="module" src="./js/services/camera/camera-app.js"></script>
       <script type="module" src="./js/services/camera/setup-camera.js"></script>
 
-      <div class="card">
+      <style>
+        #photos canvas {
+          width: 300px;
+        }
+
+        #video {
+          width: 400px;
+        }
+      </style>
+
+      <div class="app-card">
         <video id="video" autoplay playsinline></video>
       </div>
 
-      <button id="take">撮影</button>
+      <button id="take" class="app-btn-primary">撮影</button>
 
-      <div class="card">
-        <canvas id="canvas"></canvas>
+      <div class="app-card">
+        <div id="photos"></div>
       </div>
     </main>
 

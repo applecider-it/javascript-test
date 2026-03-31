@@ -2,6 +2,4 @@
  * カメラアプリのセットアップ
  */
 
-const app = new App.services.camera.CameraApp('video', 'canvas', 'take');
-
-app.init();
+const app = new App.services.camera.CameraApp('video', 'photos', 'take');

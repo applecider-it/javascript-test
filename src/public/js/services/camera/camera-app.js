@@ -4,25 +4,16 @@
 class CameraApp {
   /**
    * コンストラクタ
-   * @param {string} videoId - video要素のID
-   * @param {string} canvasId - canvas要素のID
-   * @param {string} buttonId - ボタン要素のID
    */
-  constructor(videoId, canvasId, buttonId) {
-    // HTML要素を取得
+  constructor(videoId, photosId, buttonId) {
     this.video = document.getElementById(videoId);
-    this.canvas = document.getElementById(canvasId);
+    this.photos = document.getElementById(photosId);
     this.button = document.getElementById(buttonId);
 
-    // 2Dコンテキストを先に取得
-    this.ctx = this.canvas.getContext('2d');
+    this.init();
   }
 
-  /**
-   * 初期化処理
-   * ・イベント登録
-   * ・カメラ起動
-   */
+  /** 初期化 */
   async init() {
     this.addEvent();
     await this.startCamera();
@@ -33,7 +24,11 @@ class CameraApp {
     try {
       // カメラ映像ストリーム取得
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: 'environment', // スマホなら背面カメラ
+        },
       });
 
       // videoにストリームをセット
@@ -48,12 +43,18 @@ class CameraApp {
 
   /** 写真を撮る */
   takePhoto() {
-    // videoサイズにcanvasを合わせる
-    this.canvas.width = this.video.videoWidth;
-    this.canvas.height = this.video.videoHeight;
+    // 新しいcanvasを作成
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
-    // 映像をcanvasに描画
-    this.ctx.drawImage(this.video, 0, 0);
+    // videoサイズに合わせる
+    canvas.width = this.video.videoWidth;
+    canvas.height = this.video.videoHeight;
+
+    // 描画
+    ctx.drawImage(this.video, 0, 0);
+
+    this.photos.appendChild(canvas);
   }
 
   /** イベント登録 */
