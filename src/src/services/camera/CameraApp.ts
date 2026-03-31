@@ -4,20 +4,17 @@
 export default class CameraApp {
   video;
   photos;
-  button;
 
   /** コンストラクタ */
-  constructor(videoId: string, photosId: string, buttonId: string) {
-    this.video = document.getElementById(videoId);
-    this.photos = document.getElementById(photosId);
-    this.button = document.getElementById(buttonId);
+  constructor(video: any, photos: any) {
+    this.video = video;
+    this.photos = photos;
 
     this.init();
   }
 
   /** 初期化 */
   async init() {
-    this.addEvent();
     await this.startCamera();
   }
 
@@ -47,7 +44,7 @@ export default class CameraApp {
   takePhoto() {
     // 新しいcanvasを作成
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const ctx: any = canvas.getContext('2d');
 
     // videoサイズに合わせる
     canvas.width = this.video.videoWidth;
@@ -56,13 +53,6 @@ export default class CameraApp {
     // 描画
     ctx.drawImage(this.video, 0, 0);
 
-    this.photos.appendChild(canvas);
-  }
-
-  /** イベント登録 */
-  addEvent() {
-    this.button.addEventListener('click', () => {
-      this.takePhoto();
-    });
+    this.photos!.appendChild(canvas);
   }
 }

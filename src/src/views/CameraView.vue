@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
+import { onMounted, ref } from 'vue';
 import CameraApp from '@/services/camera/CameraApp';
 
+const video = ref(null);
+const photos = ref(null);
+
+const app = ref<any>(null);
+
+const take = () => {
+  app.value.takePhoto();
+};
+
 onMounted(() => {
-  const app = new CameraApp('video', 'photos', 'take');
+  app.value = new CameraApp(video.value, photos.value);
 });
 </script>
 
@@ -12,24 +20,24 @@ onMounted(() => {
   <h2 class="app-h2">カメラアプリ</h2>
 
   <div class="app-card">
-    <video id="video" autoplay playsinline></video>
+    <video ref="video" autoplay playsinline></video>
   </div>
 
   <div style="margin: 2rem 0">
-    <button id="take" class="app-btn-primary">撮影</button>
+    <button @click="take" class="app-btn-primary">撮影</button>
   </div>
 
   <div class="app-card">
-    <div id="photos"></div>
+    <div ref="photos" class="photos"></div>
   </div>
 </template>
 
 <style>
-#photos canvas {
+.photos canvas {
   width: 300px;
 }
 
-#video {
+video {
   width: 400px;
 }
 </style>
