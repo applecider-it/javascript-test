@@ -38,7 +38,7 @@ export default class CameraApp {
     }
   }
 
-  /** 写真を撮る */
+  /** 写真を撮って、DataURLを返す */
   takePhoto(): string {
     // 新しいcanvasを作成
     const canvas: HTMLCanvasElement = document.createElement('canvas');

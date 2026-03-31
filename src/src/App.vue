@@ -14,10 +14,7 @@ import { RouterLink, RouterView } from 'vue-router';
     </nav>
   </header>
 
-  <main
-    class="flex-1 bg-white p-[1.7rem] rounded-xl"
-    style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05)"
-  >
+  <main class="p-[1.7rem]">
     <RouterView />
   </main>
 
@@ -27,7 +24,6 @@ import { RouterLink, RouterView } from 'vue-router';
 </template>
 
 <style scoped>
-/* ナビ */
 .nav a {
   @apply ml-5 no-underline text-[#555] font-medium transition duration-200;
 }

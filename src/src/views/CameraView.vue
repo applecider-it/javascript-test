@@ -3,13 +3,13 @@ import { onMounted, ref } from 'vue';
 import CameraApp from '@/services/camera/CameraApp';
 
 const video = ref(null);
-const photos = ref<any>([]);
+const photos = ref<string[]>([]);
 
-const app = ref<any>(null);
+const app = ref<CameraApp | null>(null);
 
 /** 写真を撮る */
 const takePhoto = () => {
-  const image = app.value.takePhoto();
+  const image = app.value!.takePhoto();
 
   photos.value.push(image);
 };
@@ -26,7 +26,7 @@ onMounted(() => {
     <video ref="video" autoplay playsinline></video>
   </div>
 
-  <div style="margin: 2rem 0">
+  <div class="my-5">
     <button @click="takePhoto" class="app-btn-primary">撮影</button>
   </div>
 
