@@ -3,16 +3,19 @@ import { onMounted, ref } from 'vue';
 import CameraApp from '@/services/camera/CameraApp';
 
 const video = ref(null);
-const photos = ref(null);
+const photos = ref<any>([]);
 
 const app = ref<any>(null);
 
-const take = () => {
-  app.value.takePhoto();
+/** 写真を撮る */
+const takePhoto = () => {
+  const image = app.value.takePhoto();
+
+  photos.value.push(image);
 };
 
 onMounted(() => {
-  app.value = new CameraApp(video.value, photos.value);
+  app.value = new CameraApp(video.value!);
 });
 </script>
 
@@ -24,16 +27,20 @@ onMounted(() => {
   </div>
 
   <div style="margin: 2rem 0">
-    <button @click="take" class="app-btn-primary">撮影</button>
+    <button @click="takePhoto" class="app-btn-primary">撮影</button>
   </div>
 
   <div class="app-card">
-    <div ref="photos" class="photos"></div>
+    <div class="photos">
+      <span v-for="(photo, index) in photos" :key="index">
+        <img :src="photo" />
+      </span>
+    </div>
   </div>
 </template>
 
-<style>
-.photos canvas {
+<style scoped>
+.photos img {
   width: 300px;
 }
 

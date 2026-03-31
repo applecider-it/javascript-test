@@ -2,27 +2,25 @@
  * カメラアプリ
  */
 export default class CameraApp {
-  video;
-  photos;
+  video: HTMLVideoElement;
 
   /** コンストラクタ */
-  constructor(video: any, photos: any) {
+  constructor(video: HTMLVideoElement) {
     this.video = video;
-    this.photos = photos;
 
     this.init();
   }
 
   /** 初期化 */
-  async init() {
+  async init(): Promise<void> {
     await this.startCamera();
   }
 
   /** カメラを起動 */
-  async startCamera() {
+  async startCamera(): Promise<void> {
     try {
       // カメラ映像ストリーム取得
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const stream: MediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           width: { ideal: 1280 },
           height: { ideal: 720 },
@@ -41,10 +39,14 @@ export default class CameraApp {
   }
 
   /** 写真を撮る */
-  takePhoto() {
+  takePhoto(): string {
     // 新しいcanvasを作成
-    const canvas = document.createElement('canvas');
-    const ctx: any = canvas.getContext('2d');
+    const canvas: HTMLCanvasElement = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+      throw new Error('2Dコンテキストが取得できません');
+    }
 
     // videoサイズに合わせる
     canvas.width = this.video.videoWidth;
@@ -53,6 +55,6 @@ export default class CameraApp {
     // 描画
     ctx.drawImage(this.video, 0, 0);
 
-    this.photos!.appendChild(canvas);
+    return canvas.toDataURL('image/png');
   }
 }
