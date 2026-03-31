@@ -28,9 +28,7 @@ class CameraApp {
     await this.startCamera();
   }
 
-  /**
-   * カメラを起動
-   */
+  /** カメラを起動 */
   async startCamera() {
     try {
       // カメラ映像ストリーム取得
@@ -43,15 +41,12 @@ class CameraApp {
 
       // 必要なら再生（環境によっては必要）
       // await this.video.play();
-
     } catch (err) {
       console.error('カメラ使えません:', err);
     }
   }
 
-  /**
-   * 写真を撮る
-   */
+  /** 写真を撮る */
   takePhoto() {
     // videoサイズにcanvasを合わせる
     this.canvas.width = this.video.videoWidth;
@@ -61,9 +56,7 @@ class CameraApp {
     this.ctx.drawImage(this.video, 0, 0);
   }
 
-  /**
-   * イベント登録
-   */
+  /** イベント登録 */
   addEvent() {
     this.button.addEventListener('click', () => {
       this.takePhoto();
@@ -71,4 +64,4 @@ class CameraApp {
   }
 }
 
-window.App.CameraApp = CameraApp;
+window.App.services.camera.CameraApp = CameraApp;
