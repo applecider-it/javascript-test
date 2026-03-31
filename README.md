@@ -5,3 +5,10 @@
 
 - カメラアプリ
 
+## 動作環境
+
+- Vue
+- Vue Router
+- Vite
+- Tailwind
+
