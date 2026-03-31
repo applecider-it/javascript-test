@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Site</title>
+    <link rel="stylesheet" href="./css/app.css" />
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <div id="app-header"></div>
+
+    <main>
+      <script type="module" src="./js/camera.js"></script>
+
+      <div class="card">
+        <video id="video" autoplay playsinline></video>
+      </div>
+
+      <button id="take">撮影</button>
+
+      <div class="card">
+        <canvas id="canvas"></canvas>
+      </div>
+    </main>
+
+    <div id="app-footer"></div>
+  </body>
+</html>

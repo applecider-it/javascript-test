@@ -1,0 +1,11 @@
+
+
+cd ~/workspace/github/javascript-test/src
+
+-----------------------------------
+
+serve ./public -l 5555
+
+http://localhost:5555/
+
+
