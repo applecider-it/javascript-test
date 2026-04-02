@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import ElementResize from '@/services/drag/ElementResize';
-import {
-  onDragOverElement,
-  onDragStartElement,
-  onDropElement,
-} from '@/services/drag/element-drag';
+import ElementDrag from '@/services/drag/ElementDrag';
 
 const elementResize = ref<ElementResize | null>(null);
+const elementDrag = ref<ElementDrag | null>(null);
+const drop = ref(null);
 
 onMounted(() => {
   console.log('onMounted');
 
   elementResize.value = new ElementResize();
+  elementDrag.value = new ElementDrag(drop.value!);
 });
 </script>
 
@@ -20,9 +19,8 @@ onMounted(() => {
   <div class="app-card flex">
     <div class="flex-1">
       <div
+        ref="drop"
         class="w-full h-80 bg-green-50 relative overflow-hidden border-2 border-gray-700"
-        @dragover="onDragOverElement"
-        @drop="onDropElement"
       >
         ここにドロップ
       </div>
@@ -32,7 +30,7 @@ onMounted(() => {
       <div
         class="w-40 h-40 border bg-red-200 app-drag-element"
         id="drag-target"
-        @dragstart="onDragStartElement"
+        @dragstart="elementDrag!.onDragStartElement"
         draggable="true"
       >
         ドラッグ対象1
@@ -47,7 +45,7 @@ onMounted(() => {
       <div
         class="w-40 h-20 border bg-blue-200 app-drag-element"
         id="drag-target2"
-        @dragstart="onDragStartElement"
+        @dragstart="elementDrag!.onDragStartElement"
         draggable="true"
       >
         ドラッグ対象2

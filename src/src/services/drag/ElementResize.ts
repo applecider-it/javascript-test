@@ -40,7 +40,7 @@ export default class ElementResize {
   };
 
   /** リサイズカーソルをマウスダウンした後にマウス移動したとき */
-  onResizeMouseMove = (e: MouseEvent) => {
+  private onResizeMouseMove = (e: MouseEvent) => {
     if (!this.isResizing || !this.resizeTarget) return;
 
     const dx = e.clientX - this.startX;
@@ -51,7 +51,7 @@ export default class ElementResize {
   };
 
   /** リサイズカーソルをマウスダウンした後にマウスアップしたとき */
-  onResizeMouseUp = () => {
+  private onResizeMouseUp = () => {
     this.isResizing = false;
     this.resizeTarget = null;
 
