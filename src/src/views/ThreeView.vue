@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { setupThree, clearThree } from '@/services/three/setup';
+import ThreeApp from '@/services/three/ThreeApp';
+
+const app = ref<ThreeApp | null>(null);
 
 onMounted(() => {
   console.log('onMounted');
-  setupThree();
+  app.value = new ThreeApp();
 });
 onUnmounted(() => {
   console.log('onUnmounted');
-  clearThree();
+  app.value!.clear();
 });
 </script>
 
