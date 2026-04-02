@@ -56,4 +56,19 @@ export default class CameraApp {
 
     return canvas.toDataURL('image/png');
   }
+
+  /** カメラ停止 */
+  public stopCamera(): void {
+    const stream = this.video.srcObject as MediaStream | null;
+
+    if (!stream) return;
+
+    // 全トラック停止
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+
+    // videoからも切り離す
+    this.video.srcObject = null;
+  }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import CameraApp from '@/services/camera/CameraApp';
 
 const video = ref(null);
@@ -15,7 +15,12 @@ const takePhoto = () => {
 };
 
 onMounted(() => {
+  console.log('onMounted');
   app.value = new CameraApp(video.value!);
+});
+onUnmounted(() => {
+  console.log('onUnmounted');
+  app.value!.stopCamera();
 });
 </script>
 
