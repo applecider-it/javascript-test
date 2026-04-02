@@ -7,7 +7,7 @@ import { makeCube } from './make';
 import type { Cube } from './types';
 
 let animationId: number;
-let stats:Stats;
+let stats: Stats;
 
 /**
  * メイン処理
@@ -52,6 +52,8 @@ export const main = (
   stats = new Stats();
   document.getElementById('stats')!.appendChild(stats.dom);
 
+  const timer = new THREE.Timer();
+
   // ===============================
   // 🔄 アニメーションループ
   // ===============================
@@ -59,14 +61,18 @@ export const main = (
     // 次のフレームで再度animateを呼ぶ（ループ）
     animationId = requestAnimationFrame(animate);
 
+    timer.update();
+
+    const delta = timer.getDelta(); // 経過時間（秒）
+
     stats.begin();
 
     // ===========================
     // 🎯 オブジェクト更新
     // ===========================
     // 毎フレーム少しずつ回転させる
-    block.rotation.x += 0.01;
-    block.rotation.y += 0.01;
+    block.rotation.x += 1.5 * delta;
+    block.rotation.y += 1 * delta;
 
     // ===========================
     // 🖼️ 描画
@@ -87,4 +93,4 @@ export const clearMain = () => {
 
   // DOM削除
   stats.dom.remove();
-}
+};
