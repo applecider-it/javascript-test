@@ -12,6 +12,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/camera">Camera</RouterLink>
       <RouterLink to="/drag">Drag</RouterLink>
+      <RouterLink to="/three">Three</RouterLink>
     </nav>
   </header>
 

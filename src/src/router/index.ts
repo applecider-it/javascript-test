@@ -19,6 +19,11 @@ const router = createRouter({
       name: 'drag',
       component: () => import('../views/DragView.vue'),
     },
+    {
+      path: '/three',
+      name: 'three',
+      component: () => import('../views/ThreeView.vue'),
+    },
   ],
 });
 
