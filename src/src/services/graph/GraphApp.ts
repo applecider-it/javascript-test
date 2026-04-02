@@ -12,9 +12,9 @@ export default class GraphApp {
 
   private draw: Draw;
 
-  constructor() {
+  constructor(targetId: string) {
     this.app = new PIXI.Application();
-    this.parent = document.getElementById('target')!;
+    this.parent = document.getElementById(targetId)!;
 
     this.graph = new PIXI.Graphics();
 
@@ -42,10 +42,9 @@ export default class GraphApp {
   /** リサイズ時 */
   private onResize = () => {
     console.log('onResize');
-    const parent = document.getElementById('target')!;
 
-    const width = parent.clientWidth;
-    const height = parent.clientHeight;
+    const width = this.parent.clientWidth;
+    const height = this.parent.clientHeight;
 
     this.app.renderer.resize(width, height);
 

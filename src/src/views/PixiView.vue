@@ -6,7 +6,7 @@ const app = ref<GraphApp | null>(null);
 
 onMounted(() => {
   console.log('onMounted');
-  app.value = new GraphApp();
+  app.value = new GraphApp('targetArea');
 });
 
 onUnmounted(() => {
@@ -20,7 +20,7 @@ onUnmounted(() => {
     Pixi.js
     <div>
       <div
-        id="target"
+        id="targetArea"
         class="border-2 border-gray-600 h-[calc(100vh-300px)]"
       ></div>
     </div>

@@ -6,7 +6,7 @@ const app = ref<ThreeApp | null>(null);
 
 onMounted(() => {
   console.log('onMounted');
-  app.value = new ThreeApp();
+  app.value = new ThreeApp('targetArea', 'statsArea');
 });
 onUnmounted(() => {
   console.log('onUnmounted');
@@ -18,9 +18,9 @@ onUnmounted(() => {
   <div class="app-card">
     Three.js
     <div
-      id="target"
+      id="targetArea"
       class="border-2 border-gray-600 h-[calc(100vh-300px)]"
     ></div>
-    <div id="stats"></div>
+    <div id="statsArea"></div>
   </div>
 </template>

@@ -12,9 +12,9 @@ export default class ThreeApp {
   private camera: THREE.PerspectiveCamera;
   private parent: HTMLElement;
 
-  constructor() {
-    this.main = new Main();
-    this.parent = document.getElementById('target')!;
+  constructor(targetId: string, statsId: string) {
+    this.main = new Main(statsId);
+    this.parent = document.getElementById(targetId)!;
 
     // ===============================
     // 🎬 シーン（3D空間）を作成

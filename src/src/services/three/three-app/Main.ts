@@ -11,8 +11,10 @@ export default class Main {
   private animationId: number = 0;
   private stats: Stats;
 
-  constructor() {
+  constructor(statsId: string) {
     this.stats = new Stats();
+
+    document.getElementById(statsId)!.appendChild(this.stats.dom);
   }
 
   /**
@@ -54,8 +56,6 @@ export default class Main {
     directionalLight.position.set(1, 10, 1);
     directionalLight.castShadow = true;
     scene.add(directionalLight);
-
-    document.getElementById('stats')!.appendChild(this.stats.dom);
 
     const timer = new THREE.Timer();
 
