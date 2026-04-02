@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { onResizeMouseDown } from '@/services/drag/element-resize';
+import ElementResize from '@/services/drag/ElementResize';
 import {
   onDragOverElement,
   onDragStartElement,
   onDropElement,
 } from '@/services/drag/element-drag';
+
+const elementResize = ref<ElementResize | null>(null);
+
+onMounted(() => {
+  console.log('onMounted');
+
+  elementResize.value = new ElementResize();
+});
 </script>
 
 <template>
@@ -32,7 +40,7 @@ import {
         <!-- リサイズハンドル -->
         <div
           class="app-drag-element-resize"
-          @mousedown="onResizeMouseDown"
+          @mousedown="elementResize!.onResizeMouseDown"
         ></div>
       </div>
 
@@ -47,7 +55,7 @@ import {
         <!-- リサイズハンドル -->
         <div
           class="app-drag-element-resize"
-          @mousedown="onResizeMouseDown"
+          @mousedown="elementResize!.onResizeMouseDown"
         ></div>
       </div>
     </div>
