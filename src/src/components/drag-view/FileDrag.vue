@@ -3,14 +3,17 @@ import { ref, onMounted } from 'vue';
 
 const previewUrls = ref<string[]>([]);
 
+/** ドラッグしているとき */
 const onDragOverFile = (e: DragEvent) => {
-  e.preventDefault();
+  e.preventDefault(); // ドロップ無効を無効化する
 };
 
+/** ドロップ時 */
 const onDropFile = (e: DragEvent) => {
   e.preventDefault();
 
   const files = e.dataTransfer?.files;
+
   if (!files || files.length === 0) return;
 
   for (const file of files) {
@@ -30,40 +33,21 @@ const onDropFile = (e: DragEvent) => {
 
 <template>
   <div class="app-card">
-    <div class="drop-area" @dragover="onDragOverFile" @drop="onDropFile">
+    <div
+      class="w-[300px] h-[200px] border-2 border-dashed border-gray-400 flex items-center justify-center"
+      @dragover="onDragOverFile"
+      @drop="onDropFile"
+    >
       ここに画像ファイルをドロップ
     </div>
-  </div>
 
-  <div class="preview mt-5">
-    <img
-      v-for="(url, index) in previewUrls"
-      :key="index"
-      :src="url"
-      class="thumb"
-    />
+    <div class="flex gap-2.5 flex-wrap mt-5">
+      <img
+        v-for="(url, index) in previewUrls"
+        :key="index"
+        :src="url"
+        class="w-[100px] h-[100px] object-cover"
+      />
+    </div>
   </div>
 </template>
-
-<style scoped>
-.drop-area {
-  width: 300px;
-  height: 200px;
-  border: 2px dashed #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preview {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.thumb {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
-</style>
