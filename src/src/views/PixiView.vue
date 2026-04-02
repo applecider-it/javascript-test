@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { setupPixi, clearPixi } from '@/services/pixi/setup';
+import GraphApp from '@/services/graph/GraphApp';
+
+const app = ref<GraphApp | null>(null);
 
 onMounted(() => {
   console.log('onMounted');
-  setupPixi();
+  app.value = new GraphApp();
 });
 
 onUnmounted(() => {
   console.log('onUnmounted');
-  clearPixi();
+  app.value!.clear();
 });
 </script>
 
