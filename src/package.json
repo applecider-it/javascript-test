@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "pixi.js": "^8.17.1",
     "stats.js": "^0.17.0",
     "three": "^0.183.2",
     "vue": "^3.5.31",

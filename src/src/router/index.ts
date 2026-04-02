@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'three',
       component: () => import('../views/ThreeView.vue'),
     },
+    {
+      path: '/pixi',
+      name: 'pixi',
+      component: () => import('../views/PixiView.vue'),
+    },
   ],
 });
 

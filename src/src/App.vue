@@ -13,6 +13,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/camera">Camera</RouterLink>
       <RouterLink to="/drag">Drag</RouterLink>
       <RouterLink to="/three">Three</RouterLink>
+      <RouterLink to="/pixi">Pixi</RouterLink>
     </nav>
   </header>
 
