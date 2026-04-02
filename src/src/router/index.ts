@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'camera',
       component: () => import('../views/CameraView.vue'),
     },
+    {
+      path: '/drag',
+      name: 'drag',
+      component: () => import('../views/DragView.vue'),
+    },
   ],
 });
 
