@@ -6,11 +6,11 @@ import Draw from './graph-app/Draw';
  * グラフアプリ
  */
 export default class GraphApp {
-  app: PIXI.Application<PIXI.Renderer>;
-  graph: PIXI.Graphics;
-  parent: HTMLElement;
+  private app: PIXI.Application<PIXI.Renderer>;
+  private graph: PIXI.Graphics;
+  private parent: HTMLElement;
 
-  draw: Draw;
+  private draw: Draw;
 
   constructor() {
     this.app = new PIXI.Application();
@@ -40,7 +40,7 @@ export default class GraphApp {
   }
 
   /** リサイズ時 */
-  onResize = () => {
+  private onResize = () => {
     console.log('onResize');
     const parent = document.getElementById('target')!;
 

@@ -17,7 +17,10 @@ onUnmounted(() => {
 <template>
   <div class="app-card">
     Three.js
-    <div id="target"></div>
+    <div
+      id="target"
+      class="border-2 border-gray-600 h-[calc(100vh-300px)]"
+    ></div>
     <div id="stats"></div>
   </div>
 </template>

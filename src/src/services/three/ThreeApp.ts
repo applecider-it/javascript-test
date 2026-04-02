@@ -9,9 +9,12 @@ export default class ThreeApp {
   private main;
 
   private renderer: THREE.WebGLRenderer;
+  private camera: THREE.PerspectiveCamera;
+  private parent: HTMLElement;
 
   constructor() {
     this.main = new Main();
+    this.parent = document.getElementById('target')!;
 
     // ===============================
     // 🎬 シーン（3D空間）を作成
@@ -25,13 +28,13 @@ export default class ThreeApp {
     // 📐 描画サイズ
     // ===============================
     // レンダリングする画面サイズ（canvasのサイズ）
-    const screenWidth = 800;
-    const screenHeight = 600;
+    const screenWidth = this.parent.clientWidth;
+    const screenHeight = this.parent.clientHeight;
 
     // ===============================
     // 🎥 カメラ
     // ===============================
-    const camera = new THREE.PerspectiveCamera(
+    this.camera = new THREE.PerspectiveCamera(
       75, // 視野角（FOV: Field of View）
       screenWidth / screenHeight, // アスペクト比（幅 / 高さ）
       0.1, // 近くの描画範囲（これより近いと表示されない）
@@ -47,14 +50,31 @@ export default class ThreeApp {
     this.renderer.setSize(screenWidth, screenHeight);
 
     // HTMLにcanvasを追加
-    // id="target" の要素の中に描画される
-    document.getElementById('target')!.appendChild(this.renderer.domElement);
+    this.parent.appendChild(this.renderer.domElement);
 
-    this.main.main(scene, this.renderer, camera);
+    window.addEventListener('resize', this.onResize);
+
+    this.main.main(scene, this.renderer, this.camera);
   }
+
+  /** リサイズ時 */
+  private onResize = () => {
+    console.log('onResize');
+
+    const screenWidth = this.parent.clientWidth;
+    const screenHeight = this.parent.clientHeight;
+
+    this.camera.aspect = screenWidth / screenHeight;
+    this.camera.updateProjectionMatrix();
+
+    // canvasのサイズを設定
+    this.renderer.setSize(screenWidth, screenHeight);
+  };
 
   /** クリアー */
   clear = () => {
+    window.removeEventListener('resize', this.onResize);
+
     this.main.clear();
 
     // DOM削除
