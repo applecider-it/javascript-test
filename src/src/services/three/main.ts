@@ -1,8 +1,13 @@
 import * as THREE from 'three';
 
+import Stats from 'stats.js';
+
 import { makeCube } from './make';
 
 import type { Cube } from './types';
+
+let animationId: number;
+let stats:Stats;
 
 /**
  * メイン処理
@@ -44,12 +49,17 @@ export const main = (
   directionalLight.castShadow = true;
   scene.add(directionalLight);
 
+  stats = new Stats();
+  document.getElementById('stats')!.appendChild(stats.dom);
+
   // ===============================
   // 🔄 アニメーションループ
   // ===============================
   function animate() {
     // 次のフレームで再度animateを呼ぶ（ループ）
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
+
+    stats.begin();
 
     // ===========================
     // 🎯 オブジェクト更新
@@ -63,8 +73,18 @@ export const main = (
     // ===========================
     // 現在のシーンをカメラ視点で描画
     renderer.render(scene, camera);
+
+    stats.end();
   }
 
   // アニメーション開始
   animate();
 };
+
+/** クリアー */
+export const clearMain = () => {
+  cancelAnimationFrame(animationId);
+
+  // DOM削除
+  stats.dom.remove();
+}

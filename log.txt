@@ -10,3 +10,5 @@ npm install three
 
 npm i --save-dev @types/three
 
+npm install stats.js
+

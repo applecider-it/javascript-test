@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 
-import { main } from './main';
+import { main, clearMain } from './main';
+
+let renderer: THREE.WebGLRenderer;
 
 /**
  * Three.jsの初期セットアップを行う関数
@@ -44,7 +46,7 @@ const setup = () => {
   // ===============================
   // 🖥️ レンダラー（描画エンジン）
   // ===============================
-  const renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer();
 
   // canvasのサイズを設定
   renderer.setSize(screenWidth, screenHeight);
@@ -54,4 +56,15 @@ const setup = () => {
   document.getElementById('target')!.appendChild(renderer.domElement);
 
   return { scene, renderer, camera };
+};
+
+/** クリアー */
+export const clearThree = () => {
+  clearMain();
+
+  // DOM削除
+  renderer.domElement.remove();
+
+  // GPU解放
+  renderer.dispose();
 };
