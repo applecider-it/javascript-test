@@ -10,12 +10,13 @@ import { RouterLink, RouterView } from 'vue-router';
     <h1 class="text-[18px] font-semibold">My Site</h1>
     <nav class="nav">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/camera">Camera</RouterLink>
-      <RouterLink to="/drag">Drag</RouterLink>
-      <RouterLink to="/three">Three</RouterLink>
-      <RouterLink to="/pixi">Pixi</RouterLink>
-      <RouterLink to="/editor">Editor</RouterLink>
-      <RouterLink to="/tiptap">TipTap</RouterLink>
+      <RouterLink to="/camera">カメラ</RouterLink>
+      <RouterLink to="/microphone">マイク</RouterLink>
+      <RouterLink to="/drag">ドラッグアンドドロップ</RouterLink>
+      <RouterLink to="/editor">エディター</RouterLink>
+      <RouterLink to="/tiptap">TipTap.js</RouterLink>
+      <RouterLink to="/three">Three.js</RouterLink>
+      <RouterLink to="/pixi">Pixi.js</RouterLink>
     </nav>
   </header>
 

@@ -39,6 +39,11 @@ const router = createRouter({
       name: 'tiptap',
       component: () => import('../views/TipTapView.vue'),
     },
+    {
+      path: '/microphone',
+      name: 'microphone',
+      component: () => import('../views/MicrophoneView.vue'),
+    },
   ],
 });
 
