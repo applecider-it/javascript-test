@@ -11,6 +11,8 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@tiptap/starter-kit": "^3.22.1",
+    "@tiptap/vue-3": "^3.22.1",
     "pixi.js": "^8.17.1",
     "prettier": "^3.8.1",
     "stats.js": "^0.17.0",

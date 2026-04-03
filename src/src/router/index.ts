@@ -34,6 +34,11 @@ const router = createRouter({
       name: 'editor',
       component: () => import('../views/EditorView.vue'),
     },
+    {
+      path: '/tiptap',
+      name: 'tiptap',
+      component: () => import('../views/TipTapView.vue'),
+    },
   ],
 });
 

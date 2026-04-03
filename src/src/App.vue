@@ -15,6 +15,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/three">Three</RouterLink>
       <RouterLink to="/pixi">Pixi</RouterLink>
       <RouterLink to="/editor">Editor</RouterLink>
+      <RouterLink to="/tiptap">TipTap</RouterLink>
     </nav>
   </header>
 
