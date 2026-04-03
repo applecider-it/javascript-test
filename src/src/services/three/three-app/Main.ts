@@ -52,9 +52,18 @@ export default class Main {
     scene.add(ground);
 
     // 光源追加
+
+    // 環境光
+    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+
+    // 自然な補助光
+    scene.add(new THREE.HemisphereLight(0xddddff, 0xddaaaa, 0.6));
+
+    // 平行光
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(1, 10, 1);
     directionalLight.castShadow = true;
+    directionalLight.intensity = 0.8;
     scene.add(directionalLight);
 
     const timer = new THREE.Timer();
