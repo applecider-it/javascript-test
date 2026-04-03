@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/drag">Drag</RouterLink>
       <RouterLink to="/three">Three</RouterLink>
       <RouterLink to="/pixi">Pixi</RouterLink>
+      <RouterLink to="/editor">Editor</RouterLink>
     </nav>
   </header>
 

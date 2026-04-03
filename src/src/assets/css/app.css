@@ -7,10 +7,19 @@
   .app-btn-primary {
     @apply bg-gradient-to-br from-[#007aff] to-[#00c6ff] text-white px-[18px] py-[10px] rounded-lg cursor-pointer transition duration-200;
   }
-
   .app-btn-primary:hover {
     @apply -translate-y-0.5;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* 通常のリンク */
+  .app-link-normal {
+    @apply text-blue-600 hover:underline;
+  }
+
+  /* フォームのテキストボックス */
+  .app-form-input {
+    @apply w-full border rounded p-2;
   }
 
   /* カード */
@@ -32,5 +41,32 @@
   /* ドラッグアンドドロップ要素リサイズカーソル */
   .app-drag-element-resize {
     @apply absolute right-0 bottom-0 w-3 h-3 bg-gray-100 border border-black cursor-se-resize;
+  }
+
+  /* 投稿内容 */
+  .app-post-content-container {
+    h1 {
+      @apply text-gray-500 text-xl my-4;
+    }
+
+    h2 {
+      @apply text-gray-500 text-lg my-3;
+    }
+
+    li {
+      @apply text-gray-400 ml-2;
+    }
+
+    img {
+      @apply border-4 my-5;
+    }
+
+    p {
+      @apply my-3;
+    }
+
+    a {
+      @apply text-blue-400 hover:underline;
+    }
   }
 }

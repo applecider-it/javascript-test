@@ -13,3 +13,5 @@ npm i --save-dev @types/three
 npm install stats.js
 
 npm install pixi.js
+
+npm install prettier
