@@ -21,6 +21,9 @@ export default class MicRecorder {
   /** requestAnimationFrameのID（音量更新ループ用） */
   private animationId: number | null = null;
 
+  /** 録音中フラグ */
+  private isRecording = false;
+
   // コールバック
 
   /** 録音中フラグ更新 */
@@ -34,6 +37,8 @@ export default class MicRecorder {
 
   /** マイク開始（音量取得 + 録音） */
   start = async () => {
+    console.log('マイク開始（音量取得 + 録音）');
+
     try {
       await this.setupMic();
 
@@ -44,7 +49,8 @@ export default class MicRecorder {
       this.setupRecorder();
 
       // 録音中フラグON
-      this.setIsRecording!(true);
+      this.isRecording = true;
+      this.setIsRecording!(this.isRecording);
     } catch (err) {
       // マイク許可拒否やデバイスエラー
       console.error('マイクエラー:', err);
@@ -53,6 +59,13 @@ export default class MicRecorder {
 
   /** 録音停止 */
   stop = () => {
+    console.log('録音停止');
+
+    if (!this.isRecording) {
+      console.warn('録音中以外で、録音停止処理が動作しました。');
+      return;
+    }
+
     // 録音停止（onstopが呼ばれる）
     this.mediaRecorder?.stop();
 
@@ -70,7 +83,8 @@ export default class MicRecorder {
     }
 
     // 録音中フラグOFF
-    this.setIsRecording!(false);
+    this.isRecording = false;
+    this.setIsRecording!(this.isRecording);
   };
 
   /** マイクのセットアップ */
