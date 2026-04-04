@@ -12,15 +12,26 @@ export default class ThreeApp {
   private main;
   private event;
 
-  public renderer: THREE.WebGLRenderer;
-  public camera: THREE.PerspectiveCamera;
-  public parent: HTMLElement;
-  public scene: THREE.Scene;
-  public stats: Stats;
+  public renderer!: THREE.WebGLRenderer;
+  public camera!: THREE.PerspectiveCamera;
+  public parent!: HTMLElement;
+  public scene!: THREE.Scene;
+  public stats!: Stats;
 
   constructor(targetId: string, statsId: string) {
+    this.setup(targetId, statsId);
+
     this.main = new Main(this);
     this.event = new Event(this);
+
+    this.event.setup();
+    this.main.setup();
+
+    this.main.start();
+  }
+
+  /** セットアップ */
+  setup(targetId: string, statsId: string) {
     this.parent = document.getElementById(targetId)!;
 
     // スタッツ
@@ -62,8 +73,6 @@ export default class ThreeApp {
 
     // HTMLにcanvasを追加
     this.parent.appendChild(this.renderer.domElement);
-
-    this.main.main();
   }
 
   /** クリアー */

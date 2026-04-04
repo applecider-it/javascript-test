@@ -4,6 +4,8 @@ import ThreeApp from '../ThreeApp';
 
 import { makeCube } from './make';
 
+import type { Cube } from '../types';
+
 /**
  * メイン部分
  */
@@ -11,40 +13,60 @@ export default class Main {
   private app;
   private animationId: number = 0;
 
+  private timer!: THREE.Timer;
+
+  private block!: Cube;
+  private ground!: Cube;
+
   constructor(app: ThreeApp) {
     this.app = app;
   }
 
-  /**
-   * メイン処理
-   */
-  main = () => {
+  /** セットアップ */
+  setup = () => {
     this.app.renderer.shadowMap.enabled = true;
 
+    this.timer = new THREE.Timer();
+
+    this.setupCamera();
+    this.setupObjects();
+    this.setupLight();
+  };
+
+  /** カメラセットアップ */
+  setupCamera = () => {
     // カメラを移動
     // デフォルトだと(0,0,0)にあるので、オブジェクトと重なって見えない
     this.app.camera.position.z = 4;
     this.app.camera.position.y = 3;
 
     this.app.camera.rotation.x -= 0.7;
+  };
 
+  /** オブジェクトセットアップ */
+  setupObjects = () => {
     // オブジェクト生成
-    const block = makeCube('Block');
-    const ground = makeCube('Ground');
 
-    block.position.y += 2;
-    block.castShadow = true;
+    this.block = makeCube('Block');
+    this.block.position.y += 2;
+    this.block.castShadow = true;
+    this.block.name = 'Block';
 
-    ground.scale.x *= 5;
-    ground.scale.z *= 5;
-    ground.receiveShadow = true;
+    this.ground = makeCube('Ground');
+    this.ground.scale.x *= 5;
+    this.ground.scale.z *= 5;
+    this.ground.receiveShadow = true;
+    this.ground.name = 'Ground';
 
     // シーンに追加
 
     // オブジェクト追加
-    this.app.scene.add(block);
-    this.app.scene.add(ground);
+    this.app.scene.add(this.block);
+    this.app.scene.add(this.ground);
+  };
 
+  /** 光源セットアップ */
+  setupLight = () => {
     // 光源追加
 
     // 環境光
@@ -59,9 +81,12 @@ export default class Main {
     directionalLight.castShadow = true;
     directionalLight.intensity = 0.8;
     this.app.scene.add(directionalLight);
+  };
 
-    const timer = new THREE.Timer();
-
+  /**
+   * メイン処理
+   */
+  start() {
     // ===============================
     // 🔄 アニメーションループ
     // ===============================
@@ -69,18 +94,11 @@ export default class Main {
       // 次のフレームで再度animateを呼ぶ（ループ）
       this.animationId = requestAnimationFrame(animate);
 
-      timer.update();
-
-      const delta = timer.getDelta(); // 経過時間（秒）
+      this.timer.update();
 
       this.app.stats.begin();
 
-      // ===========================
-      // 🎯 オブジェクト更新
-      // ===========================
-      // 毎フレーム少しずつ回転させる
-      block.rotation.x += 1.5 * delta;
-      block.rotation.y += 1 * delta;
+      this.update();
 
       // ===========================
       // 🖼️ 描画
@@ -93,7 +111,21 @@ export default class Main {
 
     // アニメーション開始
     animate();
-  };
+  }
+
+  /**
+   * フレームごとの更新処理
+   */
+  update() {
+    const delta = this.timer.getDelta(); // 経過時間（秒）
+
+    // ===========================
+    // 🎯 オブジェクト更新
+    // ===========================
+    // 毎フレーム少しずつ回転させる
+    this.block.rotation.x += 1.5 * delta;
+    this.block.rotation.y += 1 * delta;
+  }
 
   /** クリアー */
   clear = () => {
