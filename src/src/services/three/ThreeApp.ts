@@ -1,28 +1,39 @@
 import * as THREE from 'three';
 
+import Stats from 'stats.js';
+
 import Main from './three-app/Main';
+import Event from './three-app/Event';
 
 /**
  * Three.jsの動作確認
  */
 export default class ThreeApp {
   private main;
+  private event;
 
-  private renderer: THREE.WebGLRenderer;
-  private camera: THREE.PerspectiveCamera;
-  private parent: HTMLElement;
+  public renderer: THREE.WebGLRenderer;
+  public camera: THREE.PerspectiveCamera;
+  public parent: HTMLElement;
+  public scene: THREE.Scene;
+  public stats: Stats;
 
   constructor(targetId: string, statsId: string) {
-    this.main = new Main(statsId);
+    this.main = new Main(this);
+    this.event = new Event(this);
     this.parent = document.getElementById(targetId)!;
+
+    // スタッツ
+    this.stats = new Stats();
+    document.getElementById(statsId)!.appendChild(this.stats.dom);
 
     // ===============================
     // 🎬 シーン（3D空間）を作成
     // ===============================
     // ここにオブジェクト（メッシュ）を追加していく
-    const scene = new THREE.Scene();
+    this.scene = new THREE.Scene();
 
-    scene.background = new THREE.Color(0xaaaaff); // 青
+    this.scene.background = new THREE.Color(0xaaaaff); // 青
 
     // ===============================
     // 📐 描画サイズ
@@ -52,32 +63,16 @@ export default class ThreeApp {
     // HTMLにcanvasを追加
     this.parent.appendChild(this.renderer.domElement);
 
-    window.addEventListener('resize', this.onResize);
-
-    this.main.main(scene, this.renderer, this.camera);
+    this.main.main();
   }
-
-  /** リサイズ時 */
-  private onResize = () => {
-    console.log('onResize');
-
-    const screenWidth = this.parent.clientWidth;
-    const screenHeight = this.parent.clientHeight;
-
-    this.camera.aspect = screenWidth / screenHeight;
-    this.camera.updateProjectionMatrix();
-
-    // canvasのサイズを設定
-    this.renderer.setSize(screenWidth, screenHeight);
-  };
 
   /** クリアー */
   clear = () => {
-    window.removeEventListener('resize', this.onResize);
-
     this.main.clear();
+    this.event.clear();
 
     // DOM削除
+    this.stats.dom.remove();
     this.renderer.domElement.remove();
 
     // GPU解放
