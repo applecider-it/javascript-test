@@ -18,6 +18,10 @@ export default class ThreeApp {
   public scene!: THREE.Scene;
   public stats!: Stats;
 
+  private animationId: number = 0;
+
+  public timer!: THREE.Timer;
+
   constructor(targetId: string, statsId: string) {
     this.setup(targetId, statsId);
 
@@ -27,11 +31,13 @@ export default class ThreeApp {
     this.event.setup();
     this.main.setup();
 
-    this.main.start();
+    this.loop();
   }
 
   /** セットアップ */
   setup(targetId: string, statsId: string) {
+    this.timer = new THREE.Timer();
+
     this.parent = document.getElementById(targetId)!;
 
     // スタッツ
@@ -75,9 +81,37 @@ export default class ThreeApp {
     this.parent.appendChild(this.renderer.domElement);
   }
 
+  /**
+   * アニメーションループ処理
+   */
+  loop() {
+    const animate = () => {
+      // 次のフレームで再度animateを呼ぶ（ループ）
+      this.animationId = requestAnimationFrame(animate);
+
+      this.timer.update();
+
+      this.stats.begin();
+
+      this.main.update();
+
+      // ===========================
+      // 🖼️ 描画
+      // ===========================
+      // 現在のシーンをカメラ視点で描画
+      this.renderer.render(this.scene, this.camera);
+
+      this.stats.end();
+    };
+
+    // アニメーション開始
+    animate();
+  }
+
   /** クリアー */
-  clear = () => {
-    this.main.clear();
+  clear() {
+    cancelAnimationFrame(this.animationId);
+
     this.event.clear();
 
     // DOM削除
@@ -86,5 +120,5 @@ export default class ThreeApp {
 
     // GPU解放
     this.renderer.dispose();
-  };
+  }
 }

@@ -11,9 +11,6 @@ import type { Cube } from '../types';
  */
 export default class Main {
   private app;
-  private animationId: number = 0;
-
-  private timer!: THREE.Timer;
 
   private block!: Cube;
   private ground!: Cube;
@@ -23,28 +20,26 @@ export default class Main {
   }
 
   /** セットアップ */
-  setup = () => {
+  setup() {
     this.app.renderer.shadowMap.enabled = true;
-
-    this.timer = new THREE.Timer();
 
     this.setupCamera();
     this.setupObjects();
     this.setupLight();
-  };
+  }
 
   /** カメラセットアップ */
-  setupCamera = () => {
+  setupCamera() {
     // カメラを移動
     // デフォルトだと(0,0,0)にあるので、オブジェクトと重なって見えない
     this.app.camera.position.z = 4;
     this.app.camera.position.y = 3;
 
     this.app.camera.rotation.x -= 0.7;
-  };
+  }
 
   /** オブジェクトセットアップ */
-  setupObjects = () => {
+  setupObjects() {
     // オブジェクト生成
 
     this.block = makeCube('Block');
@@ -60,15 +55,12 @@ export default class Main {
 
     // シーンに追加
 
-    // オブジェクト追加
     this.app.scene.add(this.block);
     this.app.scene.add(this.ground);
-  };
+  }
 
   /** 光源セットアップ */
-  setupLight = () => {
-    // 光源追加
-
+  setupLight() {
     // 環境光
     this.app.scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
@@ -81,43 +73,13 @@ export default class Main {
     directionalLight.castShadow = true;
     directionalLight.intensity = 0.8;
     this.app.scene.add(directionalLight);
-  };
-
-  /**
-   * メイン処理
-   */
-  start() {
-    // ===============================
-    // 🔄 アニメーションループ
-    // ===============================
-    const animate = () => {
-      // 次のフレームで再度animateを呼ぶ（ループ）
-      this.animationId = requestAnimationFrame(animate);
-
-      this.timer.update();
-
-      this.app.stats.begin();
-
-      this.update();
-
-      // ===========================
-      // 🖼️ 描画
-      // ===========================
-      // 現在のシーンをカメラ視点で描画
-      this.app.renderer.render(this.app.scene, this.app.camera);
-
-      this.app.stats.end();
-    };
-
-    // アニメーション開始
-    animate();
   }
 
   /**
    * フレームごとの更新処理
    */
   update() {
-    const delta = this.timer.getDelta(); // 経過時間（秒）
+    const delta = this.app.timer.getDelta(); // 経過時間（秒）
 
     // ===========================
     // 🎯 オブジェクト更新
@@ -126,9 +88,4 @@ export default class Main {
     this.block.rotation.x += 1.5 * delta;
     this.block.rotation.y += 1 * delta;
   }
-
-  /** クリアー */
-  clear = () => {
-    cancelAnimationFrame(this.animationId);
-  };
 }
