@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 import Stats from 'stats.js';
 
@@ -13,6 +14,7 @@ export default class ThreeApp {
   public event;
 
   public renderer!: THREE.WebGLRenderer;
+  public uiRenderer!: CSS2DRenderer;
   public camera!: THREE.PerspectiveCamera;
   public parent!: HTMLElement;
   public scene!: THREE.Scene;
@@ -70,6 +72,15 @@ export default class ThreeApp {
     );
 
     // ===============================
+    // 2D UI
+    // ===============================
+    this.uiRenderer = new CSS2DRenderer();
+    this.uiRenderer.setSize(screenWidth, screenHeight);
+    this.uiRenderer.domElement.style.position = 'absolute';
+    this.uiRenderer.domElement.style.top = '0';
+    this.uiRenderer.domElement.style.pointerEvents = 'none';
+
+    // ===============================
     // 🖥️ レンダラー（描画エンジン）
     // ===============================
     this.renderer = new THREE.WebGLRenderer();
@@ -79,6 +90,9 @@ export default class ThreeApp {
 
     // HTMLにcanvasを追加
     this.parent.appendChild(this.renderer.domElement);
+
+    // HTMLに2D UIを追加
+    this.parent.appendChild(this.uiRenderer.domElement);
   }
 
   /**
@@ -100,6 +114,7 @@ export default class ThreeApp {
       // ===========================
       // 現在のシーンをカメラ視点で描画
       this.renderer.render(this.scene, this.camera);
+      this.uiRenderer.render(this.scene, this.camera);
 
       this.stats.end();
     };

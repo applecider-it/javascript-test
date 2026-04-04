@@ -1,7 +1,8 @@
 import * as THREE from 'three';
+import { CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 
 /** キューブ生成 */
-export const makeCube = (textureName: string) => {
+export const makeCube = ({ textureName }: { textureName: string }) => {
   // ===============================
   // 🧱 ジオメトリ（形）
   // ===============================
@@ -26,4 +27,16 @@ export const makeCube = (textureName: string) => {
   const cube = new THREE.Mesh(geometry, material);
 
   return cube;
+};
+
+/** ラベル生成 */
+export const makeLabel = (name: string) => {
+  const div = document.createElement('div');
+
+  div.className = 'app-three-label';
+  div.textContent = name;
+
+  const label = new CSS2DObject(div);
+
+  return label;
 };

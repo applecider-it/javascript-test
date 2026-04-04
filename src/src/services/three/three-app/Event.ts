@@ -31,6 +31,9 @@ export default class Event {
     this.app.renderer.domElement.addEventListener('mouseup', () => {
       this.isMouseDowned = false;
     });
+    this.app.renderer.domElement.addEventListener('mouseleave', () => {
+      this.isMouseDowned = false;
+    });
   }
 
   /** クリック時 */
@@ -71,6 +74,9 @@ export default class Event {
 
     // canvasのサイズを設定
     this.app.renderer.setSize(screenWidth, screenHeight);
+
+    // 2D UIのサイズを設定
+    this.app.uiRenderer.setSize(screenWidth, screenHeight);
   };
 
   /** クリアー */

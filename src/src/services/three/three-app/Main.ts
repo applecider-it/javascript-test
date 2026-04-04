@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import ThreeApp from '../ThreeApp';
 
-import { makeCube } from './make';
+import { makeCube, makeLabel } from './make';
 
 import type { Cube } from '../types';
 
@@ -42,12 +42,20 @@ export default class Main {
   setupObjects() {
     // オブジェクト生成
 
-    this.block = makeCube('Block');
+    this.block = makeCube({
+      textureName: 'Block',
+    });
     this.block.position.y += 2;
     this.block.castShadow = true;
     this.block.name = 'Block';
 
-    this.ground = makeCube('Ground');
+    const labelBlock = makeLabel('ブロック');
+    labelBlock.position.set(0.5, 0.5, 0.5);
+    this.block.add(labelBlock);
+
+    this.ground = makeCube({
+      textureName: 'Ground',
+    });
     this.ground.scale.x *= 5;
     this.ground.scale.z *= 5;
     this.ground.receiveShadow = true;

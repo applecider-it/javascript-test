@@ -19,7 +19,7 @@ onUnmounted(() => {
     Three.js
     <div
       id="targetArea"
-      class="border-2 border-gray-600 h-[calc(100vh-300px)]"
+      class="border-2 border-gray-600 h-[calc(100vh-300px)] relative"
     ></div>
     <div id="statsArea"></div>
   </div>

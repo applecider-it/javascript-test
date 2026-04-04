@@ -69,4 +69,9 @@
       @apply text-blue-400 hover:underline;
     }
   }
+
+  /* Three.jsページ用のラベル */
+  .app-three-label {
+    @apply text-white text-sm bg-black/60 px-2 py-1 rounded whitespace-nowrap;
+  }
 }
