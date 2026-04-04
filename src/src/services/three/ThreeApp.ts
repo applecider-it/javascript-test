@@ -9,8 +9,8 @@ import Event from './three-app/Event';
  * Three.jsの動作確認
  */
 export default class ThreeApp {
-  private main;
-  private event;
+  public main;
+  public event;
 
   public renderer!: THREE.WebGLRenderer;
   public camera!: THREE.PerspectiveCamera;

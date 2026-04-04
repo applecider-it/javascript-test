@@ -81,11 +81,18 @@ export default class Main {
   update() {
     const delta = this.app.timer.getDelta(); // 経過時間（秒）
 
-    // ===========================
-    // 🎯 オブジェクト更新
-    // ===========================
-    // 毎フレーム少しずつ回転させる
-    this.block.rotation.x += 1.5 * delta;
-    this.block.rotation.y += 1 * delta;
+    const mouseVelocity = this.app.event.mouseVelocity;
+    const isMouseDowned = this.app.event.isMouseDowned;
+
+    //console.log(mouseVelocity.x, mouseVelocity.y);
+
+    const speed = 2;
+
+    if (isMouseDowned) {
+      this.block.rotation.x += mouseVelocity.y * speed * delta;
+      this.block.rotation.y += mouseVelocity.x * speed * delta;
+    } else {
+      this.block.rotation.y += 0.1 * delta;
+    }
   }
 }

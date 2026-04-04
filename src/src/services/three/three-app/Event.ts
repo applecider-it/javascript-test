@@ -2,11 +2,16 @@ import * as THREE from 'three';
 
 import ThreeApp from '../ThreeApp';
 
+import MouseVelocity from '@/services/ui/MouseVelocity';
+
 /**
  * イベント部分
  */
 export default class Event {
   private app;
+
+  public mouseVelocity!: MouseVelocity;
+  public isMouseDowned = false;
 
   constructor(app: ThreeApp) {
     this.app = app;
@@ -17,6 +22,15 @@ export default class Event {
     window.addEventListener('resize', this.onResize);
 
     this.app.renderer.domElement.addEventListener('click', this.onClick);
+
+    this.mouseVelocity = new MouseVelocity(this.app.renderer.domElement);
+
+    this.app.renderer.domElement.addEventListener('mousedown', () => {
+      this.isMouseDowned = true;
+    });
+    this.app.renderer.domElement.addEventListener('mouseup', () => {
+      this.isMouseDowned = false;
+    });
   }
 
   /** クリック時 */
