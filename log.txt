@@ -17,3 +17,7 @@ npm install pixi.js
 npm install prettier
 
 npm install @tiptap/vue-3 @tiptap/starter-kit
+
+npm install leaflet
+
+npm i --save-dev @types/leaflet

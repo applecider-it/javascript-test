@@ -17,6 +17,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/tiptap">TipTap.js</RouterLink>
       <RouterLink to="/three">Three.js</RouterLink>
       <RouterLink to="/pixi">Pixi.js</RouterLink>
+      <RouterLink to="/map">地図</RouterLink>
     </nav>
   </header>
 

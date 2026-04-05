@@ -44,6 +44,11 @@ const router = createRouter({
       name: 'microphone',
       component: () => import('../views/MicrophoneView.vue'),
     },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/MapView.vue'),
+    },
   ],
 });
 
