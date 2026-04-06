@@ -2,9 +2,9 @@ import * as THREE from 'three';
 
 import ThreeApp from '../ThreeApp';
 
-import { makeCube, makeLabel, loadModel } from './make';
+import { makeBox, makePlane, makeLabel, loadModel } from './make';
 
-import type { Cube, Model } from '../types';
+import type { Box, Plane, Model } from '../types';
 
 /**
  * メイン部分
@@ -12,9 +12,11 @@ import type { Cube, Model } from '../types';
 export default class Main {
   private app;
 
-  private block!: Cube;
-  private ground!: Cube;
+  private block!: Box;
+  private ground!: Plane;
   private duck!: Model;
+
+  private rotationWait = 0;
 
   constructor(app: ThreeApp) {
     this.app = app;
@@ -58,10 +60,14 @@ export default class Main {
 
   /** オブジェクトセットアップ */
   async setupObjects() {
-    // オブジェクト生成
+    this.setupBlock();
+    this.setupGround();
+    await this.setupDuck();
+  }
 
-    // ブロック
-    this.block = makeCube({
+  /** ブロックセットアップ */
+  setupBlock() {
+    this.block = makeBox({
       textureName: 'Block',
     });
     this.block.position.y += 2;
@@ -74,25 +80,32 @@ export default class Main {
     this.block.add(labelBlock);
 
     this.app.scene.add(this.block);
+  }
 
-    // 地面
-    this.ground = makeCube({
+  /** 地面セットアップ */
+  setupGround() {
+    this.ground = makePlane({
       textureName: 'Ground',
     });
+    this.ground.scale.y *= 10;
     this.ground.scale.x *= 10;
-    this.ground.scale.z *= 10;
+
+    this.ground.rotation.x = THREE.MathUtils.degToRad(-90);
     this.ground.receiveShadow = true;
     this.ground.name = 'Ground';
     this.app.scene.add(this.ground);
+  }
 
-    // アヒル
+  /** アヒルセットアップ */
+  async setupDuck() {
     this.duck = await loadModel({
       url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb',
       castShadow: true,
     });
     this.duck.position.y += 2;
     this.duck.position.x -= 1;
-    this.duck.scale.set(0.5, 0.5, 0.5);
+    const duckScale = 0.6;
+    this.duck.scale.set(duckScale, duckScale, duckScale);
 
     const labelDuck = makeLabel('アヒル');
     labelDuck.position.set(-0.5, 1.2, 0);
@@ -113,15 +126,22 @@ export default class Main {
     //console.log(mouseVelocity.x, mouseVelocity.y);
 
     const speed = 5;
+    const speedAuto = 1;
 
     if (isMouseDowned) {
       this.block.rotation.x += mouseVelocity.y * speed * delta;
       this.block.rotation.y += mouseVelocity.x * speed * delta;
       this.duck.rotation.x += mouseVelocity.y * speed * delta;
       this.duck.rotation.y += mouseVelocity.x * speed * delta;
+
+      this.rotationWait = 3;
     } else {
-      this.block.rotation.y += 0.1 * delta;
-      this.duck.rotation.y += 0.1 * delta;
+      if (this.rotationWait > 0) {
+        this.rotationWait -= delta;
+      } else {
+        this.block.rotation.y += speedAuto * delta;
+        this.duck.rotation.y += speedAuto * delta;
+      }
     }
   }
 }

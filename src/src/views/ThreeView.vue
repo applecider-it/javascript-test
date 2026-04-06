@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, markRaw  } from 'vue';
+import { onMounted, onUnmounted, markRaw } from 'vue';
 import ThreeApp from '@/services/three/ThreeApp';
 
-const app = markRaw(new ThreeApp())
+// refを使うと動作しなくなる
+const app = markRaw(new ThreeApp());
 
-onMounted(async() => {
+onMounted(async () => {
   console.log('onMounted');
- 
+
   await app.setup('targetArea', 'statsArea');
 
   app.loop();
