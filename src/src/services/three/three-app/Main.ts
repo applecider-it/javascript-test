@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import ThreeApp from '../ThreeApp';
 
-import { makeBox, makePlane, makeLabel, loadModel } from './make';
+import { makeBox, makePlane, makeLabel, loadModel, modelMesh } from './make';
 
 import type { Box, Plane, Model } from '../types';
 
@@ -73,7 +73,7 @@ export default class Main {
     this.block.position.y += 2;
     this.block.position.x += 1;
     this.block.castShadow = true;
-    this.block.name = 'Block';
+    this.block.name = 'ブロック';
 
     const labelBlock = makeLabel('ブロック');
     labelBlock.position.set(0.5, 0.5, 0.5);
@@ -92,7 +92,7 @@ export default class Main {
 
     this.ground.rotation.x = THREE.MathUtils.degToRad(-90);
     this.ground.receiveShadow = true;
-    this.ground.name = 'Ground';
+    this.ground.name = '地面';
     this.app.scene.add(this.ground);
   }
 
@@ -100,12 +100,15 @@ export default class Main {
   async setupDuck() {
     this.duck = await loadModel({
       url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb',
-      castShadow: true,
     });
     this.duck.position.y += 2;
     this.duck.position.x -= 1;
     const duckScale = 0.6;
     this.duck.scale.set(duckScale, duckScale, duckScale);
+    modelMesh(this.duck, (obj) => {
+      obj.castShadow = true;
+      obj.name = 'アヒル';
+    });
 
     const labelDuck = makeLabel('アヒル');
     labelDuck.position.set(-0.5, 1.2, 0);

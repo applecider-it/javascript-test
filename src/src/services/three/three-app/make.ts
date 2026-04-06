@@ -33,7 +33,7 @@ export const makePlane = ({ textureName }: { textureName: string }) => {
 
 /** マテリアル生成 */
 const makeMaterial = (textureName: string) => {
-    // テクスチャ読み込み
+  // テクスチャ読み込み
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load(`/images/three/${textureName}.png`); // public配下
 
@@ -58,35 +58,26 @@ export const makeLabel = (name: string) => {
   return label;
 };
 
-/** 同期的にモデル生成 */
-export const loadModel = ({
-  url,
-  castShadow = false,
-}: {
-  url: string;
-  castShadow?: boolean;
-}): Promise<Model> => {
-  const loader = new GLTFLoader();
-
-  /** モデルを更新 */
-  const update = (model: Model) => {
-    if (castShadow) {
-      // 影を投射する時
-
-      // すべてのメッシュにcastShadowを設定
-      model.traverse((obj) => {
-        if (obj instanceof THREE.Mesh) {
-          obj.castShadow = true;
-        }
-      });
+/** モデルのメッシュにコールバックを適用 */
+export const modelMesh = (
+  model: Model,
+  callback: (obj: THREE.Mesh) => void,
+) => {
+  model.traverse((obj) => {
+    if (obj instanceof THREE.Mesh) {
+      callback(obj);
     }
-    return model;
-  };
+  });
+};
+
+/** 同期的にモデル生成 */
+export const loadModel = ({ url }: { url: string }): Promise<Model> => {
+  const loader = new GLTFLoader();
 
   return new Promise((resolve, reject) => {
     loader.load(
       url,
-      (gltf) => resolve(update(gltf.scene)),
+      (gltf) => resolve(gltf.scene),
       undefined,
       (error) => reject(error),
     );
