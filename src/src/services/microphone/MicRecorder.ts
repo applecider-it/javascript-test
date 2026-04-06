@@ -62,7 +62,7 @@ export default class MicRecorder {
     console.log('録音停止');
 
     if (!this.isRecording) {
-      console.warn('録音中以外で、録音停止処理が動作しました。');
+      console.log('録音中ではありません。');
       return;
     }
 
