@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, markRaw  } from 'vue';
 import ThreeApp from '@/services/three/ThreeApp';
 
-const app = ref<ThreeApp | null>(null);
+const app = markRaw(new ThreeApp())
 
-onMounted(() => {
+onMounted(async() => {
   console.log('onMounted');
-  app.value = new ThreeApp('targetArea', 'statsArea');
+ 
+  await app.setup('targetArea', 'statsArea');
+
+  app.loop();
 });
 onUnmounted(() => {
   console.log('onUnmounted');
-  app.value!.clear();
+  app.clear();
 });
 </script>
 

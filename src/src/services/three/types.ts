@@ -5,3 +5,5 @@ export type Cube = THREE.Mesh<
   THREE.MeshStandardMaterial,
   THREE.Object3DEventMap
 >;
+
+export type Model = THREE.Group<THREE.Object3DEventMap>;

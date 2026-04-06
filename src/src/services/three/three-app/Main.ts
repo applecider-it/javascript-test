@@ -2,9 +2,9 @@ import * as THREE from 'three';
 
 import ThreeApp from '../ThreeApp';
 
-import { makeCube, makeLabel } from './make';
+import { makeCube, makeLabel, loadModel } from './make';
 
-import type { Cube } from '../types';
+import type { Cube, Model } from '../types';
 
 /**
  * メイン部分
@@ -14,57 +14,30 @@ export default class Main {
 
   private block!: Cube;
   private ground!: Cube;
+  private duck!: Model;
 
   constructor(app: ThreeApp) {
     this.app = app;
   }
 
   /** セットアップ */
-  setup() {
+  async setup() {
     this.app.renderer.shadowMap.enabled = true;
 
     this.setupCamera();
-    this.setupObjects();
     this.setupLight();
+
+    await this.setupObjects();
   }
 
   /** カメラセットアップ */
   setupCamera() {
     // カメラを移動
     // デフォルトだと(0,0,0)にあるので、オブジェクトと重なって見えない
-    this.app.camera.position.z = 4;
+    this.app.camera.position.z = 3;
     this.app.camera.position.y = 3;
 
-    this.app.camera.rotation.x -= 0.7;
-  }
-
-  /** オブジェクトセットアップ */
-  setupObjects() {
-    // オブジェクト生成
-
-    this.block = makeCube({
-      textureName: 'Block',
-    });
-    this.block.position.y += 2;
-    this.block.castShadow = true;
-    this.block.name = 'Block';
-
-    const labelBlock = makeLabel('ブロック');
-    labelBlock.position.set(0.5, 0.5, 0.5);
-    this.block.add(labelBlock);
-
-    this.ground = makeCube({
-      textureName: 'Ground',
-    });
-    this.ground.scale.x *= 5;
-    this.ground.scale.z *= 5;
-    this.ground.receiveShadow = true;
-    this.ground.name = 'Ground';
-
-    // シーンに追加
-
-    this.app.scene.add(this.block);
-    this.app.scene.add(this.ground);
+    this.app.camera.rotation.x -= 0.5;
   }
 
   /** 光源セットアップ */
@@ -83,6 +56,51 @@ export default class Main {
     this.app.scene.add(directionalLight);
   }
 
+  /** オブジェクトセットアップ */
+  async setupObjects() {
+    // オブジェクト生成
+
+    // ブロック
+    this.block = makeCube({
+      textureName: 'Block',
+    });
+    this.block.position.y += 2;
+    this.block.position.x += 1;
+    this.block.castShadow = true;
+    this.block.name = 'Block';
+
+    const labelBlock = makeLabel('ブロック');
+    labelBlock.position.set(0.5, 0.5, 0.5);
+    this.block.add(labelBlock);
+
+    this.app.scene.add(this.block);
+
+    // 地面
+    this.ground = makeCube({
+      textureName: 'Ground',
+    });
+    this.ground.scale.x *= 10;
+    this.ground.scale.z *= 10;
+    this.ground.receiveShadow = true;
+    this.ground.name = 'Ground';
+    this.app.scene.add(this.ground);
+
+    // アヒル
+    this.duck = await loadModel({
+      url: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb',
+      castShadow: true,
+    });
+    this.duck.position.y += 2;
+    this.duck.position.x -= 1;
+    this.duck.scale.set(0.5, 0.5, 0.5);
+
+    const labelDuck = makeLabel('アヒル');
+    labelDuck.position.set(-0.5, 1.2, 0);
+    this.duck.add(labelDuck);
+
+    this.app.scene.add(this.duck);
+  }
+
   /**
    * フレームごとの更新処理
    */
@@ -94,13 +112,16 @@ export default class Main {
 
     //console.log(mouseVelocity.x, mouseVelocity.y);
 
-    const speed = 2;
+    const speed = 5;
 
     if (isMouseDowned) {
       this.block.rotation.x += mouseVelocity.y * speed * delta;
       this.block.rotation.y += mouseVelocity.x * speed * delta;
+      this.duck.rotation.x += mouseVelocity.y * speed * delta;
+      this.duck.rotation.y += mouseVelocity.x * speed * delta;
     } else {
       this.block.rotation.y += 0.1 * delta;
+      this.duck.rotation.y += 0.1 * delta;
     }
   }
 }

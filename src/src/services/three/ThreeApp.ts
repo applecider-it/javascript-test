@@ -24,20 +24,13 @@ export default class ThreeApp {
 
   public timer!: THREE.Timer;
 
-  constructor(targetId: string, statsId: string) {
-    this.setup(targetId, statsId);
-
+  constructor() {
     this.main = new Main(this);
     this.event = new Event(this);
-
-    this.event.setup();
-    this.main.setup();
-
-    this.loop();
   }
 
   /** セットアップ */
-  setup(targetId: string, statsId: string) {
+  async setup(targetId: string, statsId: string) {
     this.timer = new THREE.Timer();
 
     this.parent = document.getElementById(targetId)!;
@@ -93,6 +86,9 @@ export default class ThreeApp {
 
     // HTMLに2D UIを追加
     this.parent.appendChild(this.uiRenderer.domElement);
+
+    this.event.setup();
+    await this.main.setup();
   }
 
   /**
