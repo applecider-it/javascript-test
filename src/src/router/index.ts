@@ -49,6 +49,11 @@ const router = createRouter({
       name: 'map',
       component: () => import('../views/MapView.vue'),
     },
+    {
+      path: '/development',
+      name: 'development',
+      component: () => import('../views/DevelopmentView.vue'),
+    },
   ],
 });
 

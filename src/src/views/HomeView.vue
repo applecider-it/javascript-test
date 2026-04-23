@@ -5,8 +5,7 @@
   <div class="app-card">
     トップページ
     <div class="mt-10">
-      アセット動作確認
-      <img src="../assets/images/AssetBlock.png" class="w-[5rem]" />
+      <RouterLink to="/development" class="app-link-normal">development</RouterLink>
     </div>
   </div>
 </template>
