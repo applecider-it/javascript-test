@@ -1,21 +1,5 @@
-
 # javascriptでどこまでできるかの検証
 
-## 実装内容
+## リンク
 
-- カメラ
-- マイク
-- ドラッグアンドドロップ
-- エディター
-- TipTap.js
-- Three.js
-- Pixi.js
-
-## 動作環境
-
-- Vue
-- Vue Router
-- Vite
-- Typescript
-- Tailwind
-
+- [検証用WEBサイト](./src/documents/index.md)
