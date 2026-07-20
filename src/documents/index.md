@@ -18,3 +18,6 @@
 - Typescript
 - Tailwind
 
+## その他
+
+- [評価](./evaluation.md)
