@@ -9,6 +9,8 @@
 - TipTap.js
 - Three.js
 - Pixi.js
+- 地図、GPS
+- 郵便番号検索
 
 ## 動作環境
 
