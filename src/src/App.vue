@@ -18,6 +18,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/three">Three.js</RouterLink>
       <RouterLink to="/pixi">Pixi.js</RouterLink>
       <RouterLink to="/map">地図</RouterLink>
+      <RouterLink to="/postcode">郵便番号</RouterLink>
     </nav>
   </header>
 
