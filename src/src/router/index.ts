@@ -50,9 +50,9 @@ const router = createRouter({
       component: () => import('../views/MapView.vue'),
     },
     {
-      path: '/postcode',
-      name: 'postcode',
-      component: () => import('../views/PostCodeView.vue'),
+      path: '/zipcode',
+      name: 'zipcode',
+      component: () => import('../views/ZipCodeView.vue'),
     },
     {
       path: '/development',
