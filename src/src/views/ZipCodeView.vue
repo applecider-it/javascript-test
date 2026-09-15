@@ -42,9 +42,9 @@ const onChangeZipCode = () => {
 <template>
   <div class="space-y-5">
     <div class="space-x-3">
-      <label for="zip">郵便番号（7桁）:</label>
+      <label for="zipCode">郵便番号（7桁）:</label>
       <input
-        id="zip"
+        id="zipCode"
         v-model="zipCode"
         @change="onChangeZipCode"
         type="text"
@@ -61,7 +61,7 @@ const onChangeZipCode = () => {
 
     <div class="space-x-3">
       <select v-model="pref" class="app-form-input w-auto">
-        <option value="" disabled>選択してください</option>
+        <option value="">選択してください</option>
         <option v-for="[code, name] in Prefectures" :key="code" :value="code">
           {{ name }}
         </option>

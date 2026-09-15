@@ -1,4 +1,4 @@
-export const Prefectures = new Map<string, string>([
+export const Prefectures = [
   ['1', '北海道'],
   ['2', '青森県'],
   ['3', '岩手県'],
@@ -46,4 +46,4 @@ export const Prefectures = new Map<string, string>([
   ['45', '宮崎県'],
   ['46', '鹿児島県'],
   ['47', '沖縄県'],
-]);
+];
