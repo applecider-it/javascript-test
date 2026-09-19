@@ -50,11 +50,6 @@ const router = createRouter({
       component: () => import('../views/MapView.vue'),
     },
     {
-      path: '/zipcode',
-      name: 'zipcode',
-      component: () => import('../views/ZipCodeView.vue'),
-    },
-    {
       path: '/development',
       name: 'development',
       component: () => import('../views/DevelopmentView.vue'),
